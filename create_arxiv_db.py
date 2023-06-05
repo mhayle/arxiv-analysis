@@ -94,23 +94,12 @@ def parse_record(r):
     return records
 
 
-# def oai_harvest(resumptionToken=None, autoresume=True):
 def oai_harvest(resumptionToken=None):
     
     calls = 0
     total_records = 0
 
     print("Starting downlaod...")
-
-    # tokenfile = 'resumptionToken.txt'
-
-    # if autoresume:
-    #     try:
-    #         resumptionToken = open(tokenfile, 'r').read()
-    #     except Exception as e:
-    #         print("No tokenfile found '{}'".format(tokenfile))
-    #         print("Starting download from scratch...")
-
 
     while True:
         root = ET.fromstring(get_record_chunk(resumptionToken))
@@ -139,13 +128,6 @@ def oai_harvest(resumptionToken=None):
         print("Time:", timedelta(seconds=time.time()-start_time))
         print("Papers in DB:", total_records)
         print("API Calls:", calls)
-        
-        # if resumptionToken:
-        #     with open(tokenfile, 'w') as fout:
-        #         fout.write(resumptionToken)
-        # else:
-        #     print('No resumption token, query finished')
-        #     return
 
         if resumptionToken is None:
             print('No resumption token. Done.')

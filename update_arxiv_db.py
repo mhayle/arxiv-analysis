@@ -55,7 +55,7 @@ def update_arxiv_metadata():
 
             current_result += 1
 
-            if published: # parse the date if it isnt current date
+            if published: # parse the date if it isnt current date ------------------ NEED TO DO ------------------ DO NOT RUN
                 looping = False
                 break
 
