@@ -9,9 +9,7 @@ from requests.exceptions import ConnectionError
 
 start_time = time.time()
 
-PATH = os.path.join(os.path.abspath('./'), 'arxiv-analysis')
-os.chdir(PATH)
-
+os.chdir('C:\\Users\\mrmus\\Documents\\GitHub\\arxiv-analysis')
 
 OAI_URL = "https://export.arxiv.org/oai2"
 OAI_NAMESPACES = {

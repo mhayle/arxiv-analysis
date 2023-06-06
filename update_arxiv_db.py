@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 import sqlite3
 from datetime import datetime, timedelta, date
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
@@ -7,10 +8,11 @@ import xml.etree.ElementTree as ET
 
 
 start_time = time.time()
-base_url = 'http://export.arxiv.org/api/query?'
+
+os.chdir('C:\\Users\\mrmus\\Documents\\GitHub\\arxiv-analysis')
 
 # SQLite connection
-conn = sqlite3.connect('arxiv-analysis\\arxiv_metadata.db')
+conn = sqlite3.connect('arxiv_metadata.db')
 
 c = conn.cursor()
 
