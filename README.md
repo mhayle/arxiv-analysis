@@ -10,8 +10,8 @@ Tools used include:
 
 
 ## Results
-I gathered all my results in an interactive dashboard to display my findings. (Not made yet)
- 
+I gathered all my results in an interactive dashboard to display my findings. (Still in progress)
+
 
 
 ## create_arxiv_db.py
@@ -22,12 +22,16 @@ This script collects the data of all research papers on arXiv and imports them i
 This is a modified version of **create_arxiv_db.py**. The previous script is ran only once in order to create the database and gather all previous papers. This script is then used to update the database with new papers. It is automatically run daily through Windows Task Scheduler to find new papers published each day and add them into the databse. This ensures that the dashboard is always current and will show the most recent results. 
 
 
-## arXiv_analysis.ipynb
-Not made yet.
+## arxiv_analysis.ipynb
+In progress.
+
+This notebook contains exploratory data analysis (EDA) of the dataset. This includes basic stats such as paper, subject, and author publication counts. Some plots made include word clouds of the abstract and titles, publications over time, and a network graph between graphs. 
 
 
 ## arxiv_dashboard.py
-Not made yet.
+Not Made yet.
+
+After the analysis, I gather all my results into a dashboard for easy viewing and digesting. This is essentially a summarized version of **arxiv_analysis.ipnb**, where I took all my significant graphs and findings and condensed them into a single page without all the excess code and messiness. The dashboard can be viewed [here](https://www.google.com). 
 
 
 ## Acknowledgements 
