@@ -23,15 +23,13 @@ This is a modified version of **create_arxiv_db.py**. The previous script is ran
 
 
 ## arxiv_analysis.ipynb
-In progress.
-
-This notebook contains exploratory data analysis (EDA) of the dataset. This includes basic stats such as paper, subject, and author publication counts. Some plots made include word clouds of the abstract and titles, publications over time, and a network graph between graphs. 
+This notebook contains exploratory data analysis (EDA) of the dataset. This includes basic stats such as paper, subject, and author publication counts. Some plots made include word clouds of the abstract and titles, publications over time, and a network graph between categories. 
 
 
 ## arxiv_dashboard.py
 Not Made yet.
 
-After the analysis, I gather all my results into a dashboard for easy viewing and digesting. This is essentially a summarized version of **arxiv_analysis.ipnb**, where I took all my significant graphs and findings and condensed them into a single page without all the excess code and messiness. The dashboard can be viewed [here](https://www.google.com). 
+After the analysis, I gather all my results into a dashboard for easy viewing and digesting. This is essentially a summarized version of **arxiv_analysis.ipynb**, where I took all my significant graphs and findings and condensed them into a single page without all the excess code and messiness. The dashboard can be viewed [here](https://www.google.com). 
 
 
 ## Acknowledgements 
