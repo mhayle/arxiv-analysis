@@ -2,30 +2,37 @@ import requests
 import time
 import os
 import sqlite3
+import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, date
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-import xml.etree.ElementTree as ET
 
 
 start_time = time.time()
 
 os.chdir('C:\\Users\\mrmus\\Documents\\GitHub\\arxiv-analysis')
 
-# SQLite connection
-conn = sqlite3.connect('arxiv_metadata.db')
-
-c = conn.cursor()
-
-# Create table
-c.execute('''CREATE TABLE IF NOT EXISTS metadata
-             (arxiv_id TEXT, title TEXT, summary TEXT, subject TEXT, published TEXT, updated TEXT, authors TEXT)''')
-
-
 OAI_URL = "https://export.arxiv.org/oai2"
 OAI_NAMESPACES = {
     'OAI': 'http://www.openarchives.org/OAI/2.0/',
     'arXiv': 'http://arxiv.org/OAI/arXivRaw/'
 }
+
+
+# SQLite connection
+conn = sqlite3.connect('arxiv_metadata.db')
+
+c = conn.cursor()
+
+
+# get last published date
+c.execute("SELECT MAX(published) FROM metadata")
+last_date = c.fetchall()[0][0]
+# last_date = last_date.split(" ")[0]
+
+
+# Create table
+c.execute('''CREATE TABLE IF NOT EXISTS metadata
+             (arxiv_id TEXT, title TEXT, summary TEXT, subject TEXT, published TEXT, updated TEXT, authors TEXT)''')
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=4, max=10), 
@@ -42,7 +49,7 @@ def get_record_chunk(resumptionToken=None, harvest_url=OAI_URL, metadataPrefix='
         parameters['resumptionToken'] = resumptionToken
     else:
         parameters['metadataPrefix'] = metadataPrefix
-        parameters['from'] = date.today().strftime("%Y-%m-%d")
+        parameters['from'] = last_date.split(" ")[0]
 
     response = make_request(harvest_url, parameters) 
 
@@ -117,8 +124,9 @@ def update_arxiv_metadata(resumptionToken=None):
 
         for r in records:
             pr = parse_record(r)
-            if pr[4].split(" ")[0] == date.today().strftime("%Y-%m-%d"):
-                c.execute("INSERT INTO metadata VALUES (?,?,?,?,?,?,?)", pr)
+            # if pr[4].split(" ")[0] > last_date:
+            if pr[4] > last_date:    
+                # c.execute("INSERT INTO metadata VALUES (?,?,?,?,?,?,?)", pr)
                 records_added += 1
         
         conn.commit()
