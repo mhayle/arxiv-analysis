@@ -49,7 +49,7 @@ def get_record_chunk(resumptionToken=None, harvest_url=OAI_URL, metadataPrefix='
         parameters['resumptionToken'] = resumptionToken
     else:
         parameters['metadataPrefix'] = metadataPrefix
-        parameters['from'] = last_date.split(" ")[0]
+        parameters['from'] = (datetime.strptime(last_date, '%Y-%m-%d %H:%M:%S') - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
 
     response = make_request(harvest_url, parameters) 
 
@@ -125,7 +125,7 @@ def update_arxiv_metadata(resumptionToken=None):
         for r in records:
             pr = parse_record(r)
             # if pr[4].split(" ")[0] > last_date:
-            if pr[4] > last_date:    
+            if pr[4] > last_date:
                 # c.execute("INSERT INTO metadata VALUES (?,?,?,?,?,?,?)", pr)
                 records_added += 1
         
